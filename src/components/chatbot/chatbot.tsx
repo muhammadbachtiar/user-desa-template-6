@@ -1,0 +1,106 @@
+"use client"
+
+import dynamic from 'next/dynamic';
+
+import useChatbotSettings from '@/hooks/useChatbotSettings';
+
+const BubbleChat = dynamic(() => import('flowise-embed-react').then(mod => mod.BubbleChat), { ssr: false });
+
+
+const Chatbot = () => {
+    const { chatbotId, chatbotUrl } = useChatbotSettings();
+
+  return (
+     <BubbleChat
+            chatflowid={chatbotId}
+            apiHost={chatbotUrl}
+             theme={{    
+                button: {
+                    backgroundColor: '#0d6b3f',
+                    right: 20,
+                    bottom: 70,
+                    size: 48,
+                    dragAndDrop: true,
+                    iconColor: 'white',
+                    autoWindowOpen: {
+                        autoOpen: false,
+                        openDelay: 2,
+                        autoOpenOnMobile: false
+                    }
+                },
+                disclaimer: {
+                    title: 'Disclaimer',
+                    message: "Dengan menggunaknan chatbot ini, kamu menyetujui <a target=\"_blank\" href=\"https://flowiseai.com/terms\">syarat dan ketentuan</a>",
+                    textColor: 'black',
+                    buttonColor: '#3b82f6',
+                    buttonText: 'Mulai percakapan',
+                    buttonTextColor: 'white',
+                    denyButtonText: 'Tutup',
+                    blurredBackgroundColor: 'rgba(0, 0, 0, 0.4)',
+                    backgroundColor: 'white'
+                },
+                customCSS: ``,
+                chatWindow: {
+                    showTitle: true,
+                    showAgentMessages: true,
+                    title: 'Aruna',
+                    titleAvatarSrc: '/images/aruna-profile.png',
+                    welcomeMessage: 'Hallo saya aruna, asisten virtual anda. Silahkan bertanya kepada saya.',
+                    errorMessage: 'This is a custom error message',
+                    backgroundColor: '#ffffff',
+                    backgroundImage: 'enter image path or link',
+                    width: 400,
+                    fontSize: 16,
+                    starterPrompts: [
+                        "Apa yang bisa kamu lakukan?",
+                        "Kamu siapa?",
+                    ],
+                    starterPromptFontSize: 15,
+                    clearChatOnReload: false,
+                    sourceDocsTitle: 'Sources:',
+                    renderHTML: true,
+                    botMessage: {
+                        backgroundColor: '#f7f8ff',
+                        textColor: '#303235',
+                        showAvatar: true,
+                        avatarSrc: '/images/aruna-profile.png'
+                    },
+                    userMessage: {
+                        backgroundColor: '#0d6b3f',
+                        textColor: '#ffffff',
+                        showAvatar: true,
+                        avatarSrc: 'https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png'
+                    },
+                    textInput: {
+                        placeholder: 'Apa pertanyaan anda?',
+                        backgroundColor: '#ffffff',
+                        textColor: '#303235',
+                        sendButtonColor: '#0d6b3f',
+                        maxChars: 50,
+                        maxCharsWarningMessage: 'Batas karakter 50',
+                        autoFocus: true,
+                        sendMessageSound: true,
+                        sendSoundLocation: 'send_message.mp3',
+                        receiveMessageSound: true,
+                        receiveSoundLocation: 'receive_message.mp3'
+                    },
+                    feedback: {
+                        color: '#303235'
+                    },
+                    dateTimeToggle: {
+                        date: true,
+                        time: true
+                    },
+                    footer: {
+                        textColor: '#303235',
+                        text: 'Aruna MEMBARA - Asisten Virtual',
+                        company: 'Muara Enim',
+                        companyLink: 'https://muaraenimkab.go.id/'
+                    }
+                }
+            }}
+        />
+  )
+}
+
+export default Chatbot
