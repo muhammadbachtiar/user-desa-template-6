@@ -150,9 +150,9 @@ export function HeroSection({ data }: HeroSectionProps) {
     );
   }
 
-  // MODE 2: No text content - show full image/video without cropping
+  // MODE 2: No text content - show full image/video without cropping, keeping it fully visible below the fixed header
   return (
-    <section className="relative w-full">
+    <section className="relative w-full pt-[52px] md:pt-[56px] lg:pt-[105px] transition-all duration-300">
       <div className="relative w-full">
         <div className="absolute inset-0 bg-black/30 z-10" />
         {/* Media - width full, height auto adjusts to content (no cropping) */}

@@ -217,18 +217,18 @@ export function Header({ data }: HeaderProps) {
                   </div>
                 )
               ) : (
-                /* Jika SUDAH scroll: Render Alamat dan Sosmed di Row 2 (Tampil di Desktop & Mobile, Sangat Pendek) */
-                <div className="w-full flex justify-between items-center py-0.5 md:py-1 text-[11px] font-semibold text-white/90 animate-fade-in transition-all duration-300">
+                /* Jika SUDAH scroll: Render Alamat dan Sosmed di Row 2 (Tampil di Desktop & Mobile, Sangat Pendek & Responsif) */
+                <div className="w-full flex justify-between items-center py-0.5 md:py-1 text-[10px] sm:text-[11px] font-semibold text-white/90 animate-fade-in transition-all duration-300 min-w-0">
                   {/* Kontak */}
-                  <div className="flex items-center space-x-6">
+                  <div className="flex items-center space-x-4 md:space-x-6 min-w-0 mr-2">
                     {phone && (
-                      <a href={`tel:${phone}`} className="flex items-center space-x-1.5 hover:text-brand-gold transition-colors">
+                      <a href={`tel:${phone}`} className="flex items-center space-x-1.5 hover:text-brand-gold transition-colors shrink-0 whitespace-nowrap">
                         <Phone className={`${isScrolled ? "h-3 w-3" : "h-3.5 w-3.5"} text-brand-gold shrink-0 transition-all duration-300`} />
-                        <span>{phone}</span>
+                        <span className="truncate max-w-[130px] sm:max-w-[260px] md:max-w-none">{phone}</span>
                       </a>
                     )}
                     {address && (
-                      <div className="flex items-center space-x-1.5 max-w-[200px] sm:max-w-[450px] md:max-w-[600px] lg:max-w-[750px]">
+                      <div className="hidden sm:flex items-center space-x-1.5 max-w-[180px] md:max-w-[320px] lg:max-w-[500px] xl:max-w-[700px] shrink truncate">
                         <MapPin className={`${isScrolled ? "h-3 w-3" : "h-3.5 w-3.5"} text-brand-gold shrink-0 transition-all duration-300`} />
                         <span className="truncate" title={address}>{address}</span>
                       </div>
@@ -236,7 +236,7 @@ export function Header({ data }: HeaderProps) {
                   </div>
                   
                   {/* Sosmed */}
-                  <div className="flex items-center space-x-3 shrink-0">
+                  <div className="flex items-center space-x-2.5 sm:space-x-3 shrink-0">
                     {socialMedia &&
                       Object.entries(socialMedia).map(([platform, info]) => {
                         const url =
