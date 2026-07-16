@@ -365,7 +365,7 @@ export default function FloatingWeatherButton() {
                     {/* Air Quality Section */}
                     {isAQILoading ? (
                       <div className="flex items-center justify-center py-3">
-                        <Loader2 size={20} className="text-green-500 animate-spin" />
+                        <Loader2 size={20} className="text-blue-500 animate-spin" />
                         <span className="text-gray-500 text-xs ml-2">Memuat kualitas udara...</span>
                       </div>
                     ) : airQualityData?.current && aqiLevel && (

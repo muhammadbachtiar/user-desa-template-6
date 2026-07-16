@@ -5,7 +5,7 @@ export default function TrackingResult({ shipment }: { shipment: Shipment }) {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "delivered":
-        return "text-green-600"
+        return "text-blue-600"
       case "in_transit":
         return "text-blue-600"
       case "pending":
@@ -18,7 +18,7 @@ export default function TrackingResult({ shipment }: { shipment: Shipment }) {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "delivered":
-        return <CheckCircle className="h-6 w-6 text-green-600" />
+        return <CheckCircle className="h-6 w-6 text-blue-600" />
       case "in_transit":
         return <Truck className="h-6 w-6 text-blue-600" />
       case "pending":

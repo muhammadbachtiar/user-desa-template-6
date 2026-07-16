@@ -183,7 +183,7 @@ export function useContent() {
 
   const footer = {
     logo: logoData?.value?.imageUrl ?? "/images/logo/enim.png?height=60&width=60",
-    regionEntity: logoData?.value?.regionEntity ?? "[nama desa belum diatur]",
+    regionEntity: logoData?.value?.regionEntity ?? "[nama belum diatur]",
     regionDescription: logoData?.value?.regionDescription ?? "[keterangan belum diatur]",
     address: footerData?.value?.contactUs?.address ?? "[alamat belum diatur]",
     phone: footerData?.value?.contactUs?.phone ?? "[phone belum diatur]",

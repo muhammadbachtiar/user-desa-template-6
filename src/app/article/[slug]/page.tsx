@@ -14,7 +14,7 @@ type PageProps = {
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params; 
+  const { slug } = await params;
 
   try {
     const logoResponse = await SettingService.getSetting(`logo-${process.env.NEXT_PUBLIC_VILLAGE_ID}`);
@@ -34,19 +34,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function Page({ params }: PageProps) {
-  const { slug } = await params; 
+  const { slug } = await params;
 
   try {
     const article = await getArticle(slug);
     return <ArticleDetail slug={slug} article={article} />;
   } catch {
-    if (validateAndRedirect([slug])) { 
+    if (validateAndRedirect([slug])) {
       return redirect('/article');
     }
     return <div className="flex flex-col text-center items-center justify-center h-96 w-full text-gray-700">
       <h1 className="text-4xl font-bold">404 - Page Not Found</h1>
       <p className="mt-2 text-lg">Halaman yang kamu cari tidak ditemukan.</p>
-      <Link href="/" className="mt-4 px-6 py-2 bg-green-700 text-white rounded hover:bg-green-800">
+      <Link href="/" className="mt-4 px-6 py-2 bg-blue-700 text-white rounded hover:bg-blue-800">
         Kembali ke Beranda
       </Link>
     </div>

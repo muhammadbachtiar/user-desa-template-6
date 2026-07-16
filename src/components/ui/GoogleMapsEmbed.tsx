@@ -81,7 +81,7 @@ export function GoogleMapsEmbed({
               href={directMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-green-700 hover:text-green-800 hover:underline transition-colors"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-700 hover:text-blue-800 hover:underline transition-colors"
             >
               Buka di Google Maps
               <ExternalLink className="h-3.5 w-3.5" />

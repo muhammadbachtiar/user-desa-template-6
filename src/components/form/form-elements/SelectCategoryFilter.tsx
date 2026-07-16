@@ -22,22 +22,56 @@ export default function SelectCategoryFilter({ setCategoryId }: SelectCategoryPr
   const customStyles: StylesConfig<{ value: number; label: string }> = {
     placeholder: (base) => ({
       ...base,
-      color: "white",
+      color: "rgb(156, 163, 175)", // placeholder gray-450
+      fontSize: "0.875rem",
     }),
     control: (base, state) => ({
       ...base,
-      color: "white",
-      backgroundColor: "#0d6b3f",
-      borderColor: state.isFocused ? "gray" : "#0d6b3f",
+      backgroundColor: "transparent",
+      borderColor: state.isFocused ? "var(--brand-primary)" : "rgb(229, 231, 235)", // border gray-200
+      borderRadius: "12px",
       padding: "2px",
+      minHeight: "44px",
+      fontSize: "0.875rem",
+      color: "var(--neutral-text)",
+      boxShadow: "none",
+      transition: "all 0.2s ease",
+      "&:hover": {
+        borderColor: "var(--brand-primary)",
+      }
     }),
     input: (base) => ({
       ...base,
-      color: "white",
+      color: "var(--neutral-text)",
     }),
     singleValue: (base) => ({
       ...base,
-      color: "white",
+      color: "var(--neutral-text)",
+      fontWeight: "500",
+    }),
+    menu: (base) => ({
+      ...base,
+      backgroundColor: "var(--neutral-bg)",
+      borderRadius: "12px",
+      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)",
+      border: "1px solid rgb(243, 244, 246)",
+      overflow: "hidden",
+      zIndex: 50,
+    }),
+    option: (base, state) => ({
+      ...base,
+      backgroundColor: state.isSelected 
+        ? "var(--brand-primary)" 
+        : state.isFocused 
+          ? "rgba(13, 107, 63, 0.05)" 
+          : "transparent",
+      color: state.isSelected ? "white" : "var(--neutral-text)",
+      cursor: "pointer",
+      fontSize: "0.875rem",
+      "&:active": {
+        backgroundColor: "var(--brand-primary)",
+        color: "white",
+      }
     }),
   }
 

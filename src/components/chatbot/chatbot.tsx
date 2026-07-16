@@ -11,12 +11,12 @@ const Chatbot = () => {
     const { chatbotId, chatbotUrl } = useChatbotSettings();
 
   return (
-     <BubbleChat
+      <BubbleChat
             chatflowid={chatbotId}
             apiHost={chatbotUrl}
              theme={{    
                 button: {
-                    backgroundColor: '#0d6b3f',
+                    backgroundColor: '#0949c3',
                     right: 20,
                     bottom: 70,
                     size: 48,
@@ -30,9 +30,9 @@ const Chatbot = () => {
                 },
                 disclaimer: {
                     title: 'Disclaimer',
-                    message: "Dengan menggunaknan chatbot ini, kamu menyetujui <a target=\"_blank\" href=\"https://flowiseai.com/terms\">syarat dan ketentuan</a>",
+                    message: "Dengan menggunakan chatbot ini, kamu menyetujui <a target=\"_blank\" href=\"https://flowiseai.com/terms\">syarat dan ketentuan</a>",
                     textColor: 'black',
-                    buttonColor: '#3b82f6',
+                    buttonColor: '#0949c3',
                     buttonText: 'Mulai percakapan',
                     buttonTextColor: 'white',
                     denyButtonText: 'Tutup',
@@ -66,7 +66,7 @@ const Chatbot = () => {
                         avatarSrc: '/images/aruna-profile.png'
                     },
                     userMessage: {
-                        backgroundColor: '#0d6b3f',
+                        backgroundColor: '#0949c3',
                         textColor: '#ffffff',
                         showAvatar: true,
                         avatarSrc: 'https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png'
@@ -75,7 +75,7 @@ const Chatbot = () => {
                         placeholder: 'Apa pertanyaan anda?',
                         backgroundColor: '#ffffff',
                         textColor: '#303235',
-                        sendButtonColor: '#0d6b3f',
+                        sendButtonColor: '#0949c3',
                         maxChars: 50,
                         maxCharsWarningMessage: 'Batas karakter 50',
                         autoFocus: true,

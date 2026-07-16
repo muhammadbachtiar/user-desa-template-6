@@ -45,9 +45,9 @@ export function getAQILevel(aqi: number) {
         return {
             label: "Baik",
             labelEn: "Good",
-            color: "text-green-600",
-            bgColor: "bg-green-100",
-            borderColor: "border-green-200",
+            color: "text-blue-600",
+            bgColor: "bg-blue-100",
+            borderColor: "border-blue-200",
         };
     } else if (aqi <= 100) {
         return {
