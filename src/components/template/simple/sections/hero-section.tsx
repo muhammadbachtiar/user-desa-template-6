@@ -9,9 +9,10 @@ import { motion } from "framer-motion"
 
 interface HeroSectionProps {
   data: HeroSectionType
+  isLoading?: boolean
 }
 
-export function HeroSection({ data }: HeroSectionProps) {
+export function HeroSection({ data, isLoading = false }: HeroSectionProps) {
   const router = useRouter();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isClient, setIsClient] = useState(false);
@@ -33,13 +34,18 @@ export function HeroSection({ data }: HeroSectionProps) {
   };
 
   // Check if data is loaded (has the required fields)
-  const isLoaded = data && 'title' in data;
+  const isLoaded = !isLoading && data && 'title' in data;
 
   // Check if we have valid media to display
-  const hasValidMedia = isClient && data?.image;
+  const hasValidMedia = isClient && (data?.image || isLoading);
 
-  // Check if title or description exists (not empty string)
-  const hasTextContent = !!(data?.title || data?.description);
+  // Check if title or description exists (not empty string) or loading
+  const hasTextContent = isLoading || !!(data?.title || data?.description);
+
+  const displayTitle = data?.title || "Selamat Datang di Portal Resmi";
+  const displayDescription = data?.description || "Menyediakan layanan informasi digital terpadu, cepat, dan transparan bagi seluruh lapisan masyarakat.";
+  const primaryBtnText = data?.buttons?.primary?.text || "Berita Terbaru";
+  const secondaryBtnText = data?.buttons?.secondary?.text || "Layanan Publik";
 
   const handleClickProfil = () => {
     router.push('/article');
@@ -105,7 +111,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                       transition={{ duration: 0.8, delay: 0.3 }}
                       className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 sm:mb-6 text-center text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.65)] leading-tight tracking-tight uppercase"
                     >
-                      {data.title}
+                      {displayTitle}
                     </motion.h1>
 
                     {/* Description */}
@@ -115,7 +121,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                       transition={{ duration: 0.8, delay: 0.5 }}
                       className="text-xs sm:text-sm md:text-base lg:text-lg mb-6 sm:mb-8 text-center text-white/90 max-w-2xl mx-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)] leading-relaxed font-normal"
                     >
-                      {data.description}
+                      {displayDescription}
                     </motion.p>
 
                     {/* Buttons */}
@@ -129,7 +135,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                         className="bg-brand-primary text-white hover:bg-brand-gold hover:scale-105 active:scale-95 shadow-lg shadow-brand-primary/20 text-xs sm:text-sm md:text-base px-6 py-3 font-bold rounded-lg transition-all duration-300 transform flex items-center gap-1.5 border-none" 
                         onClick={handleClickProfil}
                       >
-                        {data.buttons?.primary?.text || "Berita Terbaru"}
+                        {primaryBtnText}
                         <ChevronRight className="h-4 w-4 ml-1" />
                       </CustomButton>
                       <CustomButton 
@@ -137,7 +143,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                         className="bg-white/10 text-white border border-white/20 hover:bg-white/20 hover:scale-105 active:scale-95 text-xs sm:text-sm md:text-base px-6 py-3 font-bold rounded-lg transition-all duration-300 backdrop-blur-sm transform flex items-center gap-1.5" 
                         onClick={handleClickLayanan}
                       >
-                        {data.buttons?.secondary?.text || "Layanan Publik"}
+                        {secondaryBtnText}
                       </CustomButton>
                     </motion.div>
                   </div>

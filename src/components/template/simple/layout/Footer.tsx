@@ -100,13 +100,13 @@ export function Footer({ data }: FooterProps) {
               {/* KOLOM 1: Brand & Media Sosial (Span 4) */}
               <div className="lg:col-span-4 flex flex-col space-y-6 text-left">
                 <div className="flex items-center space-x-3.5 select-none">
-                  <div className="p-2 bg-white/5 rounded-2xl border border-white/10 shrink-0">
+                  <div className="p-2 bg-white rounded-2xl shrink-0 flex items-center justify-center w-12 h-12 md:w-14 md:h-14">
                     <Image
-                      className="w-10 h-10 object-contain aspect-square"
+                      className="max-w-full max-h-full object-contain"
                       src={data?.logo ?? '/images/logo/enim.png'}
                       alt="Logo"
-                      width={60}
-                      height={60}
+                      width={48}
+                      height={48}
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = '/images/logo/enim.png';
                       }}

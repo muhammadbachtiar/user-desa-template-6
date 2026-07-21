@@ -89,16 +89,16 @@ function filterServiceLinks(
 
 
 export function useContent() {
-  const { data: logoData } = useSetting(`logo-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
-  const { data: serviceData } = useSetting(`service-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
-  const { data: appData } = useSetting(`app-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
-  const { data: welcomeData } = useStaticPage({}, `wellcome-message-${process.env.NEXT_PUBLIC_VILLAGE_ID}`);
-  const { data: programData } = useStaticPage({}, `village-program-${process.env.NEXT_PUBLIC_VILLAGE_ID}`);
-  const { data: footerData } = useSetting(`footer-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
-  const { data: menuData } = useSetting(`menu-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
-  const { data: tourData } = useSetting(`tour-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
-  const { data: articleData } = useSetting(`article-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
-  const { data: heroData } = useSetting(`hero-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
+  const { data: logoData, isLoading: isLogoLoading } = useSetting(`logo-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
+  const { data: serviceData, isLoading: isServiceLoading } = useSetting(`service-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
+  const { data: appData, isLoading: isAppLoading } = useSetting(`app-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
+  const { data: welcomeData, isLoading: isWelcomeLoading } = useStaticPage({}, `wellcome-message-${process.env.NEXT_PUBLIC_VILLAGE_ID}`);
+  const { data: programData, isLoading: isProgramLoading } = useStaticPage({}, `village-program-${process.env.NEXT_PUBLIC_VILLAGE_ID}`);
+  const { data: footerData, isLoading: isFooterLoading } = useSetting(`footer-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
+  const { data: menuData, isLoading: isMenuLoading } = useSetting(`menu-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
+  const { data: tourData, isLoading: isTourLoading } = useSetting(`tour-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
+  const { data: articleData, isLoading: isArticleLoading } = useSetting(`article-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
+  const { data: heroData, isLoading: isHeroLoading } = useSetting(`hero-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
 
   // Feature flags untuk filter menu
   const { pressRelease, isSectionEnabled } = useFeatureFlags();
@@ -219,6 +219,14 @@ export function useContent() {
     service,
     pressRelease,
     isSectionEnabled,
+    isLoading: {
+      logo: isLogoLoading,
+      menu: isMenuLoading,
+      hero: isHeroLoading,
+      about: isTourLoading,
+      footer: isFooterLoading,
+      service: isServiceLoading,
+    }
   }
 }
 

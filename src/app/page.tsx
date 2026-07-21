@@ -12,7 +12,7 @@ import useDynamicSections from "@/hooks/useDynamicSections"
 import useFeatureFlags, { SectionKey } from "@/hooks/useFeatureFlags"
 
 export default function Home() {
-  const { hero, infoCards, about } = useContent();
+  const { hero, infoCards, about, isLoading } = useContent();
   const { sections, isLoading: isSectionsLoading } = useDynamicSections();
   const { sectionsOrder, isSectionEnabled } = useFeatureFlags();
 
@@ -40,7 +40,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
       <main>
-        <HeroSection data={hero} />
+        <HeroSection data={hero} isLoading={isLoading?.hero} />
         {sectionsOrder.map((section) => section.enabled && renderSection(section.key))}
       </main>
     </div>

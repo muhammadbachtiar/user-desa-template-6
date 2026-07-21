@@ -86,15 +86,6 @@ export default async function PageStatic({ params }: PageProps) {
 
             {/* Kolom Kiri: Konten Halaman Dinamis (8 Kolom) */}
             <div className="w-full col-span-12 lg:col-span-8 flex flex-col text-left">
-              {/* Header Halaman */}
-              <div className="flex flex-col mb-6 pb-6 border-b border-gray-100 dark:border-gray-800/80">
-                <span className="text-xs sm:text-sm font-bold text-brand-primary uppercase tracking-wider mb-2">
-                  Informasi Resmi
-                </span>
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-neutral-text leading-tight tracking-tight uppercase">
-                  {pageTitle}
-                </h1>
-              </div>
 
               {/* Isi Konten */}
               <div className="prose prose-neutral dark:prose-invert max-w-none text-neutral-text leading-relaxed">

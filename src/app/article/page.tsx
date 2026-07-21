@@ -98,7 +98,7 @@ export default function PageArticle() {
           <PageSkeleton />
         ) : articleImportData.length === 0 ? (
           <div className="h-44 w-full flex items-center justify-center border border-dashed border-gray-200 dark:border-gray-850 rounded-2xl bg-neutral-bg-subtle/20 select-none">
-            <p className="text-center text-neutral-text-muted text-sm">Tidak ada artikel yang cocok dengan filter pencarian.</p>
+            <p className="text-center text-neutral-text-muted text-sm">Tidak ada artikel tersedia.</p>
           </div>
         ) : (
           <div className="w-full flex flex-col">

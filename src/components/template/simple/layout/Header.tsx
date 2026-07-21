@@ -16,9 +16,10 @@ interface HeaderProps {
     regionDescription: string,
     menus: NavItem[],
   }
+  isLoading?: boolean
 }
 
-export function Header({ data }: HeaderProps) {
+export function Header({ data, isLoading = false }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
@@ -42,6 +43,13 @@ export function Header({ data }: HeaderProps) {
 
   const mainNav = data?.menus ?? []
   const hasBrackets = /[\[\]]/.test(data?.regionEntity ?? '');
+  
+  const regionEntity = data?.regionEntity && !hasBrackets ? data.regionEntity : "Portal Resmi Desa";
+  const regionDescription = data?.regionDescription && !hasBrackets ? data.regionDescription : "Kabupaten Muara Enim";
+  const logoSrc = data?.logo || "/images/logo/enim.png";
+  
+  const showLogoSkeleton = isLoading && (!data?.regionEntity || hasBrackets);
+  const finalMenus = mainNav.length > 0 ? mainNav : [{ title: 'Beranda', route: '/' } as NavItem];
 
   const renderSocialIcon = (platform: string) => {
     switch (platform.toLowerCase()) {
@@ -80,7 +88,7 @@ export function Header({ data }: HeaderProps) {
             
             {/* Logo (Kiri) */}
             <div className="flex items-center space-x-3">
-              {!data?.regionEntity || hasBrackets ? (
+              {showLogoSkeleton ? (
                 <div className="flex items-center space-x-3">
                   <div className="h-9 w-9 bg-gray-300/30 animate-pulse rounded"></div>
                   <div className="space-y-1.5">
@@ -95,18 +103,21 @@ export function Header({ data }: HeaderProps) {
                 >
                   <Image
                     className="w-[34px] h-[34px] md:w-[38px] md:h-[38px] object-contain aspect-square transition-all duration-300"
-                    src={data?.logo ?? "/images/logo/enim.png"}
+                    src={logoSrc}
                     alt="Logo"
                     width={100}
                     height={100}
                     priority
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "/images/logo/enim.png";
+                    }}
                   />
                   <div className="flex flex-col justify-center">
                     <h1 className="font-bold text-sm md:text-base leading-tight text-brand-primary">
-                      {data?.regionEntity}
+                      {regionEntity}
                     </h1>
                     <p className="text-[10px] md:text-xs font-semibold leading-tight text-neutral-text-muted">
-                      {data?.regionDescription}
+                      {regionDescription}
                     </p>
                   </div>
                 </Link>
@@ -164,13 +175,13 @@ export function Header({ data }: HeaderProps) {
             ) : (
               /* Jika SUDAH scroll: Menu Navigasi Utama (Desktop) */
               <div className="hidden lg:flex items-center transition-all duration-300">
-                {mainNav.length > 0 && (
+                {finalMenus.length > 0 && (
                   <MainNav 
-                    menuData={mainNav} 
+                    menuData={finalMenus} 
                     isScrolled={isScrolled} 
-                    logo={data?.logo}
-                    regionEntity={data?.regionEntity}
-                    regionDescription={data?.regionDescription}
+                    logo={logoSrc}
+                    regionEntity={regionEntity}
+                    regionDescription={regionDescription}
                   />
                 )}
               </div>
@@ -179,13 +190,13 @@ export function Header({ data }: HeaderProps) {
             {/* Mobile Hamburger (Selalu ada di Mobile, Tersembunyi di Desktop) */}
             <div className="flex lg:hidden items-center">
               <MobileSidebar 
-                menuData={mainNav} 
+                menuData={finalMenus} 
                 isOpen={isSidebarOpen} 
                 setIsOpen={setIsSidebarOpen} 
                 isScrolled={true}
-                logo={data?.logo}
-                regionEntity={data?.regionEntity}
-                regionDescription={data?.regionDescription}
+                logo={logoSrc}
+                regionEntity={regionEntity}
+                regionDescription={regionDescription}
               />
             </div>
 
@@ -199,7 +210,7 @@ export function Header({ data }: HeaderProps) {
               
               {!isScrolled ? (
                 /* Jika BELUM scroll: Render Menu Navigasi di Row 2 (Hanya Desktop) */
-                mainNav.length === 0 || mainNav.length <= 3 ? (
+                isLoading && mainNav.length === 0 ? (
                   <div className="hidden lg:flex space-x-6 py-2.5">
                     <div className="h-3.5 w-16 bg-white/20 animate-pulse rounded"></div>
                     <div className="h-3.5 w-20 bg-white/20 animate-pulse rounded"></div>
@@ -208,11 +219,11 @@ export function Header({ data }: HeaderProps) {
                 ) : (
                   <div className="hidden lg:block w-full">
                     <MainNav 
-                      menuData={mainNav} 
+                      menuData={finalMenus} 
                       isScrolled={isScrolled} 
-                      logo={data?.logo}
-                      regionEntity={data?.regionEntity}
-                      regionDescription={data?.regionDescription}
+                      logo={logoSrc}
+                      regionEntity={regionEntity}
+                      regionDescription={regionDescription}
                     />
                   </div>
                 )
