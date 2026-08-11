@@ -92,7 +92,7 @@ export function InfoSection({ cards }: InfoSectionProps) {
         {/* PREMIUM ETALASE SHOWCASE (Infinite Marquee / Mobile Touch Scroll) */}
         {marqueeCards.length > 0 ? (
           <div className="relative w-full overflow-hidden py-4 select-none">
-            {/* Soft Fading Gradients on Left & Right edges for premium look (Visible only on desktop marquee) */}
+            {/* Soft Fading Gradients on Left & Right edges for premium look */}
             <div className="hidden lg:block absolute top-0 bottom-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-neutral-bg via-neutral-bg/60 to-transparent z-10 pointer-events-none" />
             <div className="hidden lg:block absolute top-0 bottom-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-neutral-bg via-neutral-bg/60 to-transparent z-10 pointer-events-none" />
             
@@ -123,6 +123,45 @@ export function InfoSection({ cards }: InfoSectionProps) {
   )
 }
 
+/* --- HELPER DESKRIPSI DEFAULT CERDAS --- */
+function getDefaultDescription(card: InfoCard): string {
+  if (card.description && card.description.trim() !== "") {
+    return card.description.trim();
+  }
+
+  const titleLower = (card.title || "").toLowerCase();
+
+  if (titleLower.includes("berita") || titleLower.includes("news")) {
+    return "Informasi dan warta terkini seputar kegiatan serta perkembangan daerah.";
+  }
+  if (titleLower.includes("artikel") || titleLower.includes("publikasi")) {
+    return "Kumpulan artikel publikasi, edukasi, dan wawasan kemasyarakatan.";
+  }
+  if (titleLower.includes("pengumuman") || titleLower.includes("agenda")) {
+    return "Pemberitahuan resmi dan agenda kegiatan pelayanan publik pemerintah.";
+  }
+  if (titleLower.includes("wisata") || titleLower.includes("tour") || titleLower.includes("destinasi")) {
+    return "Panduan destinasi wisata unggulan, kebudayaan lokal, dan keindahan daerah.";
+  }
+  if (titleLower.includes("transparansi") || titleLower.includes("anggaran") || titleLower.includes("keuangan")) {
+    return "Keterbukaan informasi publik terkait laporan keuangan dan tata kelola daerah.";
+  }
+  if (titleLower.includes("layanan") || titleLower.includes("service") || titleLower.includes("publik")) {
+    return "Akses kemudahan fasilitas pelayanan publik serta administrasi terpadu bagi warga.";
+  }
+  if (titleLower.includes("profil") || titleLower.includes("perangkat") || titleLower.includes("struktur")) {
+    return "Gambaran umum, struktur organisasi, dan sejarah tata kelola pemerintahan.";
+  }
+  if (titleLower.includes("galeri") || titleLower.includes("foto") || titleLower.includes("video")) {
+    return "Dokumentasi visual dan rekaman kegiatan pembangunan serta kemasyarakatan.";
+  }
+  if (titleLower.includes("kontak") || titleLower.includes("aduan") || titleLower.includes("bantuan")) {
+    return "Pusat bantuan, kanal pengaduan masyarakat, serta informasi kontak resmi.";
+  }
+
+  return "Akses informasi dan fasilitas pelayanan publik terpadu untuk masyarakat.";
+}
+
 /* --- PREMIUM CARD COMPONENT IMPLEMENTATION --- */
 export interface PremiumInfoCardProps {
   card: InfoCard
@@ -146,6 +185,7 @@ export function PremiumInfoCard({ card, onClick }: PremiumInfoCardProps) {
   };
 
   const buttonText = getButtonText();
+  const displayDescription = getDefaultDescription(card);
 
   const cardContent = (
     <div 
@@ -183,12 +223,10 @@ export function PremiumInfoCard({ card, onClick }: PremiumInfoCardProps) {
           {card.title || "Informasi Layanan"}
         </h3>
         
-        {/* Description (Hanya jika ada dari fetch) */}
-        {card.description && (
-          <p className="text-xs text-neutral-text-muted mt-1.5 line-clamp-2 leading-relaxed">
-            {card.description}
-          </p>
-        )}
+        {/* Description (Otomatis menggunakan deskripsi default jika kosong) */}
+        <p className="text-xs text-neutral-text-muted mt-1.5 line-clamp-2 leading-relaxed">
+          {displayDescription}
+        </p>
       </div>
 
       {/* Brand New Pill Button */}
