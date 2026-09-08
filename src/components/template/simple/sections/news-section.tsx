@@ -5,6 +5,7 @@ import { ChevronRight } from "lucide-react"
 import useArticle from "@/features/article/hooks/useArticle";
 import { useContent } from "@/hooks/useContent";
 import { ArticleType } from "@/features/article/types/article.type";
+import { truncateWords } from "@/lib/utils";
 
 export function NewsSection() {
   // Fetch berita terbaru (published_at)
@@ -138,17 +139,17 @@ function FeaturedCard({ item }: { item: ArticleType }) {
 
       {/* Konten teks di atas gambar */}
       <div className="absolute inset-0 z-20 flex flex-col justify-end p-5 sm:p-6 text-left">
-        <div className="flex flex-wrap items-center gap-2 text-white/80 text-[10px] sm:text-xs font-semibold mb-2">
-          <span className="bg-brand-primary px-2 py-0.5 rounded text-[10px] text-white">
-            {item.category?.name || "Artikel"}
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-white/80 text-[10px] sm:text-xs font-semibold mb-2 min-w-0">
+          <span className="bg-brand-primary px-2 py-0.5 rounded text-[10px] text-white shrink-0 max-w-[130px] truncate" title={item.category?.name || "Artikel"}>
+            {truncateWords(item.category?.name || "Artikel", 2)}
           </span>
-          <span>•</span>
-          <span className="truncate max-w-[100px]">{item.user?.name || "Admin"}</span>
-          <span>•</span>
-          <span>{formatDate(item.published_at)}</span>
+          <span className="text-white/50 select-none shrink-0">•</span>
+          <span className="truncate max-w-[100px] shrink-0" title={item.user?.name || "Admin"}>{item.user?.name || "Admin"}</span>
+          <span className="text-white/50 select-none shrink-0">•</span>
+          <span className="shrink-0">{formatDate(item.published_at)}</span>
         </div>
 
-        <h3 className="text-base sm:text-lg md:text-xl font-bold text-white leading-snug group-hover:text-brand-gold transition-colors line-clamp-2">
+        <h3 className="text-base sm:text-lg md:text-xl font-bold text-white leading-snug group-hover:text-brand-gold transition-colors line-clamp-2" title={item.title}>
           {item.title}
         </h3>
       </div>
@@ -173,8 +174,8 @@ function NormalNewsCard({ item }: { item: ArticleType }) {
             (e.target as HTMLImageElement).src = "/images/placeholder.svg";
           }}
         />
-        <span className="absolute top-3 left-3 bg-brand-primary text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm">
-          {item.category?.name || "Artikel"}
+        <span className="absolute top-3 left-3 bg-brand-primary text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-sm max-w-[130px] truncate" title={item.category?.name || "Artikel"}>
+          {truncateWords(item.category?.name || "Artikel", 2)}
         </span>
       </div>
 
@@ -182,19 +183,19 @@ function NormalNewsCard({ item }: { item: ArticleType }) {
       <div className="p-4 flex flex-col justify-between flex-1">
         <div>
           {/* Meta */}
-          <div className="text-[10px] text-neutral-text-muted font-semibold flex items-center space-x-2">
-            <span className="truncate max-w-[80px]">{item.user?.name || "Admin"}</span>
-            <span>•</span>
-            <span>{formatDate(item.published_at)}</span>
+          <div className="text-[10px] text-neutral-text-muted font-semibold flex flex-wrap items-center gap-x-2 gap-y-0.5 min-w-0">
+            <span className="truncate max-w-[80px] shrink-0" title={item.user?.name || "Admin"}>{item.user?.name || "Admin"}</span>
+            <span className="text-gray-300 select-none shrink-0">•</span>
+            <span className="shrink-0">{formatDate(item.published_at)}</span>
           </div>
 
           {/* Title */}
-          <h4 className="text-sm font-bold text-neutral-text mt-2 group-hover:text-brand-primary transition-colors line-clamp-2 leading-snug">
+          <h4 className="text-sm font-bold text-neutral-text mt-2 group-hover:text-brand-primary transition-colors line-clamp-2 leading-snug" title={item.title}>
             {item.title}
           </h4>
 
           {/* Description */}
-          <p className="text-xs text-neutral-text-muted mt-1.5 line-clamp-2 leading-relaxed">
+          <p className="text-xs text-neutral-text-muted mt-1.5 line-clamp-2 leading-relaxed" title={item.description || ""}>
             {item.description || "Klik untuk membaca selengkapnya mengenai berita ini."}
           </p>
         </div>
@@ -212,14 +213,14 @@ function PopularNewsItem({ item, idx }: { item: ArticleType; idx: number }) {
       </span>
       <div className="flex-1 min-w-0">
         <Link href={`/article/${item.slug}`}>
-          <h4 className="text-xs sm:text-sm font-bold text-neutral-text hover:text-brand-primary line-clamp-2 transition-colors leading-snug">
+          <h4 className="text-xs sm:text-sm font-bold text-neutral-text hover:text-brand-primary line-clamp-2 transition-colors leading-snug" title={item.title}>
             {item.title}
           </h4>
         </Link>
-        <div className="flex items-center space-x-2 text-[10px] text-neutral-text-muted mt-1.5 font-semibold">
-          <span>{item.category?.name || "Artikel"}</span>
-          <span>•</span>
-          <span>{formatDate(item.published_at)}</span>
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[10px] text-neutral-text-muted mt-1.5 font-semibold min-w-0">
+          <span className="shrink-0" title={item.category?.name || "Artikel"}>{truncateWords(item.category?.name || "Artikel", 2)}</span>
+          <span className="text-gray-300 select-none shrink-0">•</span>
+          <span className="shrink-0">{formatDate(item.published_at)}</span>
         </div>
       </div>
     </div>

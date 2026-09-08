@@ -9,6 +9,7 @@ import Image from 'next/image';
 import moment from 'moment';
 import "moment/locale/id";
 import { Calendar } from 'lucide-react';
+import { truncateWords } from '@/lib/utils';
 
 export default function PageArticle() {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -134,6 +135,7 @@ interface PremiumArticleGridCardProps {
 function PremiumArticleGridCard({ item }: PremiumArticleGridCardProps) {
   const dateStr = item.published_at || item.created_at;
   const formattedDate = dateStr ? moment(dateStr).locale('id').format('dddd, D MMMM YYYY') : "Baru saja";
+  const rawCategory = item.category?.name || "Artikel";
 
   return (
     <Link
@@ -152,8 +154,8 @@ function PremiumArticleGridCard({ item }: PremiumArticleGridCardProps) {
             (e.target as HTMLImageElement).src = "/images/placeholder.svg";
           }}
         />
-        <span className="absolute top-3 left-3 bg-brand-primary text-white text-[10px] font-bold px-2.5 py-0.5 rounded-lg shadow-sm uppercase tracking-wider select-none">
-          {item.category?.name || "Artikel"}
+        <span className="absolute top-3 left-3 bg-brand-primary text-white text-[10px] font-bold px-2.5 py-0.5 rounded-lg shadow-sm uppercase tracking-wider select-none max-w-[140px] truncate" title={rawCategory}>
+          {truncateWords(rawCategory, 2)}
         </span>
       </div>
 
@@ -169,13 +171,13 @@ function PremiumArticleGridCard({ item }: PremiumArticleGridCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="text-sm font-bold text-neutral-text mt-3 group-hover:text-brand-primary transition-colors line-clamp-2 leading-snug">
+          <h3 className="text-sm font-bold text-neutral-text mt-3 group-hover:text-brand-primary transition-colors line-clamp-2 leading-snug" title={item.title}>
             {item.title}
           </h3>
 
           {/* Excerpt */}
           {item.description && (
-            <p className="text-xs text-neutral-text-muted mt-2 line-clamp-2 leading-relaxed">
+            <p className="text-xs text-neutral-text-muted mt-2 line-clamp-2 leading-relaxed" title={item.description}>
               {item.description}
             </p>
           )}

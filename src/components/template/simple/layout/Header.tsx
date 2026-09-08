@@ -99,6 +99,7 @@ export function Header({ data, isLoading = false }: HeaderProps) {
               ) : (
                 <Link
                   href="/"
+                  title={`${regionEntity} - ${regionDescription}`}
                   className="flex flex-row py-1 space-x-3 rtl:space-x-reverse rounded-md transition transform duration-300 ease-in-out hover:scale-95 shrink-0"
                 >
                   <Image
@@ -113,10 +114,10 @@ export function Header({ data, isLoading = false }: HeaderProps) {
                     }}
                   />
                   <div className="flex flex-col justify-center">
-                    <h1 className="font-bold text-sm md:text-base leading-tight text-brand-primary">
+                    <h1 className="font-bold text-sm md:text-base leading-tight text-brand-primary" title={regionEntity}>
                       {regionEntity}
                     </h1>
-                    <p className="text-[10px] md:text-xs font-semibold leading-tight text-neutral-text-muted">
+                    <p className="text-[10px] md:text-xs font-semibold leading-tight text-neutral-text-muted" title={regionDescription}>
                       {regionDescription}
                     </p>
                   </div>
@@ -133,6 +134,7 @@ export function Header({ data, isLoading = false }: HeaderProps) {
                   {phone && (
                     <a
                       href={`tel:${phone}`}
+                      title={`Telepon: ${phone}`}
                       className="flex items-center space-x-2 hover:text-brand-primary transition-colors"
                     >
                       <Phone className="h-3.5 w-3.5 text-brand-primary shrink-0" />

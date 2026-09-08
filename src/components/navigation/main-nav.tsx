@@ -37,14 +37,15 @@ export function MainNav({ menuData, isScrolled, logo, regionEntity, regionDescri
       />
 
       <div className="hidden lg:block w-full">
-        <ul className="flex items-center justify-center gap-4">
+        <ul className="flex items-center justify-center gap-2 xl:gap-3">
           <NavMenu items={sortedMenuItems.slice(0,5)} isScrolled={isScrolled} />
           {sortedMenuItems.length > 5 && (
             <li className="relative flex items-center">
               <button
                 onClick={() => setIsOpen(true)}
+                title="Menu Lainnya"
                 className={classNames(
-                  "px-3.5 py-2.5 transition-all duration-200 rounded-md flex items-center space-x-1 text-sm font-semibold border shadow-sm",
+                  "px-2.5 py-1.5 sm:px-3 sm:py-2 transition-all duration-200 rounded-md flex items-center space-x-1 text-sm font-semibold border shadow-sm",
                   isScrolled
                     ? "bg-neutral-bg-subtle text-neutral-text border-gray-200 hover:bg-gray-100"
                     : "bg-white/10 text-white hover:bg-white/20 border-white/10"

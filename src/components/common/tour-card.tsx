@@ -37,13 +37,13 @@ export function TourCard({ title, image, slug, className, excerpt, address }: To
       <div className="p-5 flex flex-col justify-between flex-1">
         <div>
           {/* Judul Destinasi */}
-          <h3 className="text-sm sm:text-base font-bold text-neutral-text group-hover:text-brand-primary transition-colors leading-tight line-clamp-1 truncate">
+          <h3 className="text-sm sm:text-base font-bold text-neutral-text group-hover:text-brand-primary transition-colors leading-tight line-clamp-1 truncate" title={title}>
             {title || "Destinasi Wisata"}
           </h3>
 
           {/* Alamat Fisik Wisata (MapPin) */}
           {address && (
-            <div className="flex items-center gap-1.5 text-xs text-neutral-text-muted mt-2 select-none min-w-0 font-medium">
+            <div className="flex items-center gap-1.5 text-xs text-neutral-text-muted mt-2 select-none min-w-0 font-medium" title={address}>
               <MapPin className="h-3.5 w-3.5 text-brand-primary shrink-0" />
               <span className="truncate">{address}</span>
             </div>
@@ -51,7 +51,7 @@ export function TourCard({ title, image, slug, className, excerpt, address }: To
 
           {/* Deskripsi Singkat */}
           {excerpt && (
-            <p className="text-xs text-neutral-text-muted mt-2.5 line-clamp-2 leading-relaxed">
+            <p className="text-xs text-neutral-text-muted mt-2.5 line-clamp-2 leading-relaxed" title={excerpt}>
               {excerpt}
             </p>
           )}
