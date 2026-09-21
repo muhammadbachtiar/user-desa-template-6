@@ -29,14 +29,23 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 # Copy only the necessary files from builder
-COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/package*.json /app/.env* ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/next.config.ts ./next.config.ts
 
+# Copy docker-entrypoint script
+COPY docker-entrypoint.sh /app/docker-entrypoint.sh
+
+# Set permissions: entrypoint executable, public & tmp writable (untuk K8s non-root/read-only FS)
+RUN chmod +x /app/docker-entrypoint.sh && chmod -R 777 /app/public /tmp
+
 # Expose port
 EXPOSE 3000
 
-# Start the app
+# Gunakan entrypoint untuk generate env-config.js saat container boot
+ENTRYPOINT ["/app/docker-entrypoint.sh"]
+
+# Start the app (diteruskan sebagai $@ oleh entrypoint)
 CMD ["npm", "start"]

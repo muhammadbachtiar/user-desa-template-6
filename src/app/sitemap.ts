@@ -3,7 +3,7 @@ import { ArticleType } from "@/features/article/types/article.type";
 import SettingService from "@/shared/services/setting.service";
 import { MenuItem } from "@/types/menu";
 import type { MetadataRoute } from "next"
-const domainUrl = process.env.NEXT_PUBLIC_DOMAIN_URL
+import { getEnv } from "@/lib/get-runtime-env";
 
 function generateStaticPagePaths(menu: MenuItem[], parentPath: string = ""): string[] {
     let paths: string[] = [];
@@ -29,6 +29,8 @@ function generateStaticPagePaths(menu: MenuItem[], parentPath: string = ""): str
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    const domainUrl = getEnv("NEXT_PUBLIC_DOMAIN_URL");
+    const villageId = getEnv("NEXT_PUBLIC_VILLAGE_ID");
 
     if(domainUrl){
         let articleEntries = [];
@@ -47,7 +49,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
 
         try {
-            const { data } = await SettingService.getSetting(`menu-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
+            const { data } = await SettingService.getSetting(`menu-${villageId}`, {});
             menuEntries = data.value || []; 
         } catch (error) {
             if (error) {

@@ -6,6 +6,7 @@ import SettingService from '@/shared/services/setting.service';
 import Link from 'next/link';
 import { validateAndRedirect } from '@/lib/shouldRedirect';
 import { redirect } from 'next/navigation';
+import { getEnv } from '@/lib/get-runtime-env';
 
 type PageProps = {
   params: Promise<{
@@ -17,7 +18,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
 
   try {
-    const logoResponse = await SettingService.getSetting(`logo-${process.env.NEXT_PUBLIC_VILLAGE_ID}`);
+    const logoResponse = await SettingService.getSetting(`logo-${getEnv("NEXT_PUBLIC_VILLAGE_ID")}`);
     const article = await getArticle(slug);
     return formatMetadata(
       { ...article, type: "article" },

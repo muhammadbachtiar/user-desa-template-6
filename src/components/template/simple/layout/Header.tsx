@@ -8,6 +8,7 @@ import { Phone, MapPin } from "lucide-react"
 import { FaFacebook, FaInstagram, FaXTwitter, FaLinkedin, FaThreads, FaTiktok, FaYoutube, FaQuestion } from "react-icons/fa6"
 import useSetting from "@/hooks/useSettings"
 import { MobileSidebar } from "@/components/navigation/mobile-sidebar"
+import { getEnv } from "@/lib/get-runtime-env"
 
 interface HeaderProps {
   data?: {
@@ -23,7 +24,7 @@ export function Header({ data, isLoading = false }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
-  const { data: footerData } = useSetting(`footer-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {})
+  const { data: footerData } = useSetting(`footer-${getEnv("NEXT_PUBLIC_VILLAGE_ID")}`, {})
   const contact = footerData?.value?.contactUs
   const phone = contact?.phone
   const address = contact?.address

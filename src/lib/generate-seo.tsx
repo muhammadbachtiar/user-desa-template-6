@@ -1,4 +1,5 @@
 import type { Metadata, ResolvingMetadata } from "next"
+import { getEnv } from "./get-runtime-env"
 
 export type BaseContent = {
   title: string
@@ -58,7 +59,7 @@ export async function formatMetadata<T extends Content>(
   },
 ): Promise<Metadata> {
   const {
-    baseUrl = process.env.NEXT_PUBLIC_DOMAIN_URL,
+    baseUrl = getEnv("NEXT_PUBLIC_DOMAIN_URL"),
     siteName = "PEMKAB Muara Enim",
     defaultAuthor = "Admin Pemkab Muara Enim",
   } = options || {}

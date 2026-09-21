@@ -4,6 +4,7 @@ import useSetting from "./useSettings";
 import useStaticPage from "./useStaticPage";
 import useFeatureFlags from "./useFeatureFlags";
 import { NavItem } from "@/types/Simple";
+import { getEnv } from "@/lib/get-runtime-env";
 
 function filterMenusByFeatures(
   menus: NavItem[],
@@ -89,16 +90,17 @@ function filterServiceLinks(
 
 
 export function useContent() {
-  const { data: logoData, isLoading: isLogoLoading } = useSetting(`logo-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
-  const { data: serviceData, isLoading: isServiceLoading } = useSetting(`service-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
-  const { data: appData, isLoading: isAppLoading } = useSetting(`app-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
-  const { data: welcomeData, isLoading: isWelcomeLoading } = useStaticPage({}, `wellcome-message-${process.env.NEXT_PUBLIC_VILLAGE_ID}`);
-  const { data: programData, isLoading: isProgramLoading } = useStaticPage({}, `village-program-${process.env.NEXT_PUBLIC_VILLAGE_ID}`);
-  const { data: footerData, isLoading: isFooterLoading } = useSetting(`footer-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
-  const { data: menuData, isLoading: isMenuLoading } = useSetting(`menu-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
-  const { data: tourData, isLoading: isTourLoading } = useSetting(`tour-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
-  const { data: articleData, isLoading: isArticleLoading } = useSetting(`article-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
-  const { data: heroData, isLoading: isHeroLoading } = useSetting(`hero-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
+  const villageId = getEnv("NEXT_PUBLIC_VILLAGE_ID");
+  const { data: logoData, isLoading: isLogoLoading } = useSetting(`logo-${villageId}`, {});
+  const { data: serviceData, isLoading: isServiceLoading } = useSetting(`service-${villageId}`, {});
+  const { data: appData, isLoading: isAppLoading } = useSetting(`app-${villageId}`, {});
+  const { data: welcomeData, isLoading: isWelcomeLoading } = useStaticPage({}, `wellcome-message-${villageId}`);
+  const { data: programData, isLoading: isProgramLoading } = useStaticPage({}, `village-program-${villageId}`);
+  const { data: footerData, isLoading: isFooterLoading } = useSetting(`footer-${villageId}`, {});
+  const { data: menuData, isLoading: isMenuLoading } = useSetting(`menu-${villageId}`, {});
+  const { data: tourData, isLoading: isTourLoading } = useSetting(`tour-${villageId}`, {});
+  const { data: articleData, isLoading: isArticleLoading } = useSetting(`article-${villageId}`, {});
+  const { data: heroData, isLoading: isHeroLoading } = useSetting(`hero-${villageId}`, {});
 
   // Feature flags untuk filter menu
   const { pressRelease, isSectionEnabled } = useFeatureFlags();

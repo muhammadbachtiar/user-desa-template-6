@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import SettingService from "@/shared/services/setting.service";
+import { getEnv } from "@/lib/get-runtime-env";
 
 // Hardcoded village ID for chatbot settings
 const CHATBOT_VILLAGE_ID = 21;
@@ -38,8 +39,8 @@ function useChatbotSettings() {
     // Fallback to env variables if API fails or returns no data
     const settingData = data?.data as ChatbotSettingData | undefined;
 
-    const chatbotId = settingData?.value?.id ?? process.env.NEXT_PUBLIC_CHATBOT_ID ?? '';
-    const chatbotUrl = settingData?.value?.url ?? process.env.NEXT_PUBLIC_CHATBOT_BASE_URL ?? '';
+    const chatbotId = settingData?.value?.id ?? getEnv("NEXT_PUBLIC_CHATBOT_ID") ?? '';
+    const chatbotUrl = settingData?.value?.url ?? getEnv("NEXT_PUBLIC_CHATBOT_BASE_URL") ?? '';
 
     return {
         chatbotId,

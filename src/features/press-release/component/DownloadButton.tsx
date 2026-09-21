@@ -9,6 +9,7 @@ import { jsPDF } from 'jspdf';
 import SettingService from "@/shared/services/setting.service";
 import { PressReleaseType } from "../types/pressRelease.type";
 import { Document, Packer, Paragraph, TextRun, ImageRun } from 'docx';
+import { getEnv } from "@/lib/get-runtime-env";
 
 export default function DownloadButton({
   article,
@@ -22,7 +23,7 @@ export default function DownloadButton({
       unit: 'mm',
       format: 'a4'
     });
-    const logoURL = await SettingService.getSetting(`logo-${process.env.NEXT_PUBLIC_VILLAGE_ID}`);
+    const logoURL = await SettingService.getSetting(`logo-${getEnv("NEXT_PUBLIC_VILLAGE_ID")}`);
     const logoResponse = await fetch(logoURL?.data?.value?.imageUrl);
     const logoBlob = await logoResponse.blob();
     const logoArrayBuffer = await logoBlob.arrayBuffer();

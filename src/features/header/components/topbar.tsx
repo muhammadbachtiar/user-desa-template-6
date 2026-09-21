@@ -2,9 +2,10 @@ import { Mail, Phone } from 'lucide-react'
 import React from 'react'
 import Sosmed from './sosmed'
 import useSetting from '@/hooks/useSettings';
+import { getEnv } from '@/lib/get-runtime-env';
 
 export default function Topbar() {
-  const { data: setting, isLoading } = useSetting(`footer-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {});
+  const { data: setting, isLoading } = useSetting(`footer-${getEnv("NEXT_PUBLIC_VILLAGE_ID")}`, {});
 
   const Skeleton = ({ className }: { className: string }) => (
     <div className={`animate-pulse bg-white/20 rounded ${className}`} />

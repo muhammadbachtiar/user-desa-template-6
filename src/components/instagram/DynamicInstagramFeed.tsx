@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import useSetting from "@/hooks/useSettings";
 import useFeatureFlags from "@/hooks/useFeatureFlags";
+import { getEnv } from "@/lib/get-runtime-env";
 
 interface InstagramMedia {
   id: string;
@@ -171,7 +172,7 @@ function formatDate(isoString: string | undefined): string {
 }
 
 export default function DynamicInstagramFeed() {
-  const villageId = process.env.NEXT_PUBLIC_VILLAGE_ID;
+  const villageId = getEnv("NEXT_PUBLIC_VILLAGE_ID");
   
   const { isSectionEnabled, isLoading: isFeaturesLoading } = useFeatureFlags();
 

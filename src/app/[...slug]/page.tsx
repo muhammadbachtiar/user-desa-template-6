@@ -9,6 +9,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { validateAndRedirect } from '@/lib/shouldRedirect';
 import { redirect } from 'next/navigation';
+import { getEnv } from '@/lib/get-runtime-env';
 
 function findMenuItemByPath(
   items: MenuWithContent,
@@ -40,10 +41,11 @@ export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug = [] } = await params; // default ke array kosong
+  const villageId = getEnv("NEXT_PUBLIC_VILLAGE_ID");
 
   const [{ data: menu }, logoResponse] = await Promise.all([
-    SettingService.getSetting(`menu-${process.env.NEXT_PUBLIC_VILLAGE_ID}`, {}),
-    SettingService.getSetting(`logo-${process.env.NEXT_PUBLIC_VILLAGE_ID}`)
+    SettingService.getSetting(`menu-${villageId}`, {}),
+    SettingService.getSetting(`logo-${villageId}`)
   ]);
 
   const menuItem = Array.isArray(menu?.value) ? findMenuItemByPath(menu.value, slug) : null;
@@ -60,10 +62,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function PageStatic({ params }: PageProps) {
   const { slug = [] } = await params; // await params di sini juga
+  const villageId = getEnv("NEXT_PUBLIC_VILLAGE_ID");
 
   try {
     const { data: menu } = await SettingService.getSetting(
-      `menu-${process.env.NEXT_PUBLIC_VILLAGE_ID}`,
+      `menu-${villageId}`,
       {}
     );
 

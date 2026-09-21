@@ -1,6 +1,7 @@
 "use client";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { getEnv } from "@/lib/get-runtime-env";
 
 declare global {
   interface Window {
@@ -15,7 +16,7 @@ export default function AnalyticsProvider() {
   useEffect(() => {
     const url = pathname + searchParams.toString();
 
-    window.gtag?.("config", process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID, {
+    window.gtag?.("config", getEnv("NEXT_PUBLIC_GOOGLE_ANALYTICS_ID"), {
       page_path: url,
     });
   }, [pathname, searchParams]);

@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import SettingService from "@/shared/services/setting.service";
+import { getEnv } from "@/lib/get-runtime-env";
 
 interface GoogleAnalyticsSettingValue {
     id: string;
@@ -17,7 +18,7 @@ interface GoogleAnalyticsSettingData {
 }
 
 function useGoogleAnalyticsSettings() {
-    const villageId = process.env.NEXT_PUBLIC_VILLAGE_ID;
+    const villageId = getEnv("NEXT_PUBLIC_VILLAGE_ID");
 
     const {
         data,
@@ -35,7 +36,7 @@ function useGoogleAnalyticsSettings() {
     const settingData = data?.data as GoogleAnalyticsSettingData | undefined;
 
     // Use value.id if available, otherwise fallback to env
-    const gaId = settingData?.value?.id ?? process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? '';
+    const gaId = settingData?.value?.id ?? getEnv("NEXT_PUBLIC_GOOGLE_ANALYTICS_ID") ?? '';
 
     return {
         gaId,

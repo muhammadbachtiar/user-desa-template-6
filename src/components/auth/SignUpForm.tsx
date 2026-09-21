@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { FormEvent, useState } from "react";
 import Swal from "sweetalert2";
+import { getEnv } from "@/lib/get-runtime-env";
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -64,7 +65,7 @@ export default function SignUpForm() {
     };
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/register`, {
+      const res = await fetch(`${getEnv("NEXT_PUBLIC_API_URL")}/api/v1/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 "use client";
 
 import useSetting from "./useSettings";
+import { getEnv } from "@/lib/get-runtime-env";
 
 export type SectionKey = "dynamic_section" | "service" | "news" | "instagram" | "infografis" | "tour";
 
@@ -27,7 +28,7 @@ const DEFAULT_SECTIONS_ORDER: SectionConfig[] = [
 const NON_OPTIONAL_SECTIONS: SectionKey[] = ["news", "infografis"];
 
 export function useFeatureFlags() {
-    const villageId = process.env.NEXT_PUBLIC_VILLAGE_ID;
+    const villageId = getEnv("NEXT_PUBLIC_VILLAGE_ID");
 
     const { data: settingData, isLoading, isError } = useSetting(`features-${villageId}`, {});
 

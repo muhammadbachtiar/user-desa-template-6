@@ -4,23 +4,27 @@ import { useQuery } from "@tanstack/react-query";
 import useSetting from "./useSettings";
 import SettingService from "@/shared/services/setting.service";
 import { DynamicSectionConfig, DynamicSectionData, DynamicSectionsSettingValue } from "@/types/DynamicSection";
+import { getEnv } from "@/lib/get-runtime-env";
 
-const DEFAULT_SECTIONS: DynamicSectionConfig[] = [
-    {
-        id: "welcome",
-        title: "Kata Sambutan",
-        slug: `wellcome-message-${process.env.NEXT_PUBLIC_VILLAGE_ID}`,
-        order: 1,
-        enabled: true,
-    },
-    {
-        id: "program",
-        title: "Program",
-        slug: `village-program-${process.env.NEXT_PUBLIC_VILLAGE_ID}`,
-        order: 2,
-        enabled: true,
-    },
-];
+function getDefaultSections(): DynamicSectionConfig[] {
+    const villageId = getEnv("NEXT_PUBLIC_VILLAGE_ID");
+    return [
+        {
+            id: "welcome",
+            title: "Kata Sambutan",
+            slug: `wellcome-message-${villageId}`,
+            order: 1,
+            enabled: true,
+        },
+        {
+            id: "program",
+            title: "Program",
+            slug: `village-program-${villageId}`,
+            order: 2,
+            enabled: true,
+        },
+    ];
+}
 
 const EMPTY_CONTENT_MESSAGE = "<p class='text-gray-500 italic p-2'>Konten belum diatur</p>";
 
@@ -52,7 +56,7 @@ async function fetchAllSectionsContent(
 }
 
 export function useDynamicSections() {
-    const villageId = process.env.NEXT_PUBLIC_VILLAGE_ID;
+    const villageId = getEnv("NEXT_PUBLIC_VILLAGE_ID");
 
     const { data: settingData, isLoading: isSettingLoading } = useSetting(
         `dynamic-sections-${villageId}`,
@@ -60,7 +64,7 @@ export function useDynamicSections() {
     );
 
     const sectionsConfig: DynamicSectionConfig[] =
-        (settingData?.value as DynamicSectionsSettingValue)?.sections || DEFAULT_SECTIONS;
+        (settingData?.value as DynamicSectionsSettingValue)?.sections || getDefaultSections();
 
     const {
         data: sectionsData,

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react';
+import { getEnv } from './get-runtime-env';
 declare global {
   interface Window {
     google: typeof google;
@@ -16,7 +17,7 @@ const StreetViewChecker = ({ lat, lng }: { lat: number; lng: number }) => {
 
   useEffect(() => {
     // If no API key is available, skip the check entirely
-    const resolvedKey = gmapsApiKey || process.env.NEXT_PUBLIC_GMAPS_API_KEY;
+    const resolvedKey = gmapsApiKey || getEnv("NEXT_PUBLIC_GMAPS_API_KEY");
     if (!resolvedKey) {
       setIsAvailable(false);
       return;

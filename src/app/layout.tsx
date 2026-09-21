@@ -4,6 +4,7 @@ import RootLayoutClient from "./rootLayout";
 import SettingService from "@/shared/services/setting.service";
 import HolyLoader from "holy-loader";
 import Script from "next/script";
+import { getEnv } from "@/lib/get-runtime-env";
 
 export const metadata = await generateMetadata(); 
 
@@ -24,9 +25,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  let gaId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || "";
+  let gaId = getEnv("NEXT_PUBLIC_GOOGLE_ANALYTICS_ID", "");
   try {
-    const villageId = process.env.NEXT_PUBLIC_VILLAGE_ID;
+    const villageId = getEnv("NEXT_PUBLIC_VILLAGE_ID");
     const response = await SettingService.getSetting(`google-analytics-id-${villageId}`);
     if (response?.data?.value?.id) {
       gaId = response.data.value.id;
@@ -37,6 +38,9 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <script src="/env-config.js" />
+      </head>
       <HolyLoader/>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <RootLayoutClient gaId={gaId}>{children}</RootLayoutClient>
@@ -50,8 +54,8 @@ export default async function RootLayout({
 }
 async function generateMetadata()  {
   try {
-    const logoResponse = await SettingService.getSetting (`logo-${process.env.NEXT_PUBLIC_VILLAGE_ID}`)
-    const heroResponse = await SettingService.getSetting (`hero-${process.env.NEXT_PUBLIC_VILLAGE_ID}`)
+    const logoResponse = await SettingService.getSetting (`logo-${getEnv("NEXT_PUBLIC_VILLAGE_ID")}`)
+    const heroResponse = await SettingService.getSetting (`hero-${getEnv("NEXT_PUBLIC_VILLAGE_ID")}`)
     return {
       title: logoResponse?.data?.value?.regionEntity || "Pemerintah Kabupaten Muara Enim",
       description: heroResponse?.data?.value?.title + heroResponse?.data?.value?.description || "Pemerintah Kabupaten Muara Enim",
@@ -63,8 +67,8 @@ async function generateMetadata()  {
     }
   } catch {
      return {
-      title: process.env.NEXT_PUBLIC_VILLAGE_NAME || "Pemerintah Kabupaten Muara Enim",
+      title: getEnv("NEXT_PUBLIC_VILLAGE_NAME", "Pemerintah Kabupaten Muara Enim"),
       description: "Pemerintah Kabupaten Muara Enim",
-    }
-  }
+    }
+  }
 }

@@ -3,6 +3,8 @@
   "version": "2.0.2",
   "private": true,
   "scripts": {
+    "predev": "node scripts/generate-env-config.js",
+    "prebuild": "node scripts/generate-env-config.js",
     "dev": "next dev --webpack",
     "build": "next build",
     "start": "next start",
